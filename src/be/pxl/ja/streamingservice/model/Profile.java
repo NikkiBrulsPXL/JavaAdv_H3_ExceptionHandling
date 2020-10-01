@@ -3,6 +3,7 @@ package be.pxl.ja.streamingservice.model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import be.pxl.ja.streamingservice.exception.*;
 
 public class Profile {
 	private String name;
@@ -26,6 +27,9 @@ public class Profile {
 
 	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
+		if(dateOfBirth.isAfter(LocalDate.now())){
+			throw new InvalidDateException(dateOfBirth, "date of birth", "Date may not be in the future");
+		}
 	}
 
 	public int getAge() {
